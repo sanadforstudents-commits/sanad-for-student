@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سند الطالب | SANAD — كلية الذكاء الاصطناعي</title>
+  <meta name="description" content="منصة دراسية تقنية هادئة لخدمة طلاب كلية الذكاء الاصطناعي في جامعة البلقاء التطبيقية.">
+  <style>
+/* ==========================================================================
+   سند الطالب | SANAD — نظام التصميم الكامل والشامل (المراحل 1 - 4 + شجرة المواد)
+   ========================================================================== */
+
+:root {
+  --color-bg: #080D18;
+  --color-card: #111B2E;
+  --color-card-hover: #16243D;
+  --color-primary: #38BDF8;
+  --color-primary-hover: #7DD3FC;
+  --color-accent: #34D399;
+  --color-warning: #FBBF24;
+  --color-danger: #F87171;
+  --color-text: #F1F5F9;
+  --color-muted: #A8B5C9;
+  --color-border: #26344D;
+  --color-tools-bg: #0B1220;
+
+  --font-ar: Tahoma, Arial, "DejaVu Sans", sans-serif;
+  --font-code: SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  --radius-card: 16px;
+  --radius-button: 10px;
+  --radius-sm: 6px;
+
+  --max-width: 1200px;
+  --transition: 0.2s ease-in-out;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-ar);
+  font-size: 16px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+}
+
+.skip-link {
+  position: absolute;
+  top: -999px;
+  right: var(--space-md);
+  background: var(--color-primary);
+  color: var(--color-bg);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+  z-index: 1000;
+  text-decoration: none;
+}
+.skip-link:focus { top: var(--space-md); }
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* الشريط العلوي */
+.site-header {
+  background-color: rgba(8, 13, 24, 0.95);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+  color: var(--color-text);
+}
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.brand-tag {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  direction: ltr;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+.nav-links {
+  display: flex;
+  gap: var(--space-md);
+  list-style: none;
+}
+.nav-link {
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+.nav-link:hover, .nav-link:focus { color: var(--color-primary); }
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: var(--space-sm);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+}
+
+/* الأزرار المشتركة */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: bold;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-button);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+}
+.btn-primary { background-color: var(--color-primary); color: #040810; }
+.btn-primary:hover { background-color: var(--color-primary-hover); }
+.btn-secondary { background-color: transparent; border-color: var(--color-border); color: var(--color-text); }
+.btn-secondary:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.btn-accent { background-color: var(--color-accent); color: #040810; }
+.btn-accent:hover { background-color: #6EE7B7; }
+.btn-danger { background-color: transparent; border-color: var(--color-danger); color: var(--color-danger); }
+.btn-danger:hover { background-color: var(--color-danger); color: #040810; }
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); }
+
+.alert-banner {
+  background-color: #261E10;
+  border: 1px solid var(--color-warning);
+  color: #FEF3C7;
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.disclaimer-banner {
+  background-color: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #BAE6FD;
+  padding: var(--space-md);
+  border-radius: var(--radius-card);
+  margin-bottom: var(--space-lg);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* واجهة الترحيب والبحث */
+.hero-section { padding: var(--space-2xl) 0 var(--space-xl); text-align: center; }
+.hero-pre { color: var(--color-accent); font-size: 0.95rem; font-weight: bold; margin-bottom: var(--space-sm); }
+.hero-title { font-size: clamp(1.8rem, 4vw, 2.75rem); color: var(--color-text); line-height: 1.3; margin-bottom: var(--space-md); }
+.hero-title span { color: var(--color-primary); }
+.hero-desc { max-width: 720px; margin: 0 auto var(--space-xl); color: var(--color-muted); font-size: 1.1rem; }
+.hero-actions { display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-xl); }
+
+.global-search-wrapper { max-width: 680px; margin: 0 auto; position: relative; text-align: right; }
+.search-input-box {
+  display: flex; align-items: center; background: var(--color-card);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
+  padding: var(--space-sm) var(--space-md); transition: border-color var(--transition);
+}
+.search-input-box:focus-within { border-color: var(--color-primary); }
+.search-input-box input {
+  width: 100%; background: transparent; border: none; color: var(--color-text);
+  font-family: inherit; font-size: 1rem; padding: var(--space-xs); outline: none;
+}
+.search-results-panel {
+  position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); max-height: 420px; overflow-y: auto;
+  z-index: 100; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); display: none;
+}
+
+/* شريط الطالب الدائم */
+.student-bar {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); padding: var(--space-md) var(--space-lg);
+  margin-top: var(--space-md); margin-bottom: var(--space-lg); display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: var(--space-md);
+}
+.student-info { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }
+.student-name { font-size: 1.15rem; font-weight: bold; }
+.student-tags { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+.tag-badge {
+  font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px;
+  background: rgba(56, 189, 248, 0.12); color: var(--color-primary);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.storage-privacy-note { font-size: 0.8rem; color: var(--color-muted); }
+
+/* أقسام الواجهة ومساحات العمل */
+.curriculum-section, .study-plan-section, .schedule-section, .courses-section, .majors-section, .about-section {
+  padding: var(--space-xl) 0;
+}
+.tools-section {
+  background-color: var(--color-tools-bg);
+  padding: var(--space-xl) 0;
+  border-radius: var(--radius-card);
+}
+.section-header { margin-bottom: var(--space-lg); }
+.section-pre { color: var(--color-accent); font-size: 0.9rem; font-weight: bold; }
+.section-title { font-size: 1.8rem; color: var(--color-text); margin-top: var(--space-xs); }
+
+/* أداة «خطة الدراسة» */
+.plan-stats-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.plan-stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+.study-toolbar-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+
+.plan-view-tabs {
+  display: flex; gap: var(--space-xs); background: var(--color-bg);
+  padding: 4px; border-radius: var(--radius-button); border: 1px solid var(--color-border);
+}
+.plan-tab-btn {
+  background: transparent; border: none; color: var(--color-muted);
+  font-family: inherit; font-size: 0.9rem; padding: 0.4rem 1rem;
+  border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition);
+}
+.plan-tab-btn.active {
+  background: var(--color-primary); color: #040810; font-weight: bold;
+}
+
+.agenda-day-group { margin-bottom: var(--space-xl); }
+.agenda-date-heading {
+  font-size: 1.1rem; color: var(--color-accent); margin-bottom: var(--space-sm);
+  display: flex; align-items: center; gap: var(--space-sm);
+}
+
+.study-task-card {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-right: 5px solid var(--color-primary); border-radius: var(--radius-card);
+  padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: var(--space-md);
+}
+.study-task-card.is-review { border-right-color: var(--color-warning); background: rgba(251, 191, 36, 0.05); }
+.study-task-card.is-completed { border-right-color: var(--color-accent); opacity: 0.75; }
+
+.study-task-info { display: flex; flex-direction: column; gap: 4px; }
+.study-task-title { font-size: 1.05rem; font-weight: bold; color: var(--color-text); }
+.study-task-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 0.75rem; }
+.badge-review {
+  background: rgba(251, 191, 36, 0.2); color: var(--color-warning);
+  border: 1px solid rgba(251, 191, 36, 0.4); padding: 1px 6px; border-radius: 4px;
+}
+.badge-worktype {
+  background: rgba(56, 189, 248, 0.15); color: var(--color-primary);
+  border: 1px solid rgba(56, 189, 248, 0.3); padding: 1px 6px; border-radius: 4px;
+}
+.study-task-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+.deficit-card {
+  background: #2D1414; border: 1px solid var(--color-danger);
+  border-radius: var(--radius-card); padding: var(--space-lg); margin-bottom: var(--space-lg); color: #FECACA;
+}
+.deficit-card h4 { color: var(--color-danger); margin-bottom: 6px; }
+
+/* أداة «رتّب دوامي» */
+.schedule-config-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-xl);
+}
+.config-card {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); padding: var(--space-lg);
+  display: flex; flex-direction: column; gap: var(--space-md);
+}
+.config-card-title {
+  font-size: 1.15rem; color: var(--color-text); display: flex;
+  align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-sm);
+}
+
+.course-schedule-picker {
+  display: flex; flex-direction: column; gap: var(--space-sm); max-height: 280px; overflow-y: auto;
+}
+.course-pick-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  padding: var(--space-sm) var(--space-md); border-radius: var(--radius-sm);
+}
+.course-pick-label { display: flex; align-items: center; gap: var(--space-sm); cursor: pointer; font-size: 0.95rem; }
+
+.sections-manager-box {
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm); padding: var(--space-md); max-height: 280px;
+  overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-sm);
+}
+.section-item-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--color-card); border: 1px solid var(--color-border);
+  padding: var(--space-sm) var(--space-md); border-radius: var(--radius-sm);
+}
+.pin-badge {
+  font-size: 0.7rem; padding: 2px 6px; border-radius: 4px;
+  background: rgba(251, 191, 36, 0.15); color: var(--color-warning);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.schedules-results-wrapper { margin-top: var(--space-xl); }
+.schedule-tabs {
+  display: flex; gap: var(--space-sm); border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-sm); margin-bottom: var(--space-lg); flex-wrap: wrap;
+}
+.tab-btn {
+  background: transparent; border: 1px solid var(--color-border); color: var(--color-muted);
+  padding: 0.5rem 1.25rem; border-radius: var(--radius-button); font-family: inherit;
+  font-size: 0.95rem; cursor: pointer; transition: all var(--transition);
+}
+.tab-btn.active {
+  background: var(--color-primary); color: #040810; border-color: var(--color-primary); font-weight: bold;
+}
+
+.schedule-metrics-box {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);
+}
+.metrics-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md); }
+.metric-pill {
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  padding: var(--space-xs) var(--space-md); border-radius: var(--radius-sm);
+  font-size: 0.85rem; color: var(--color-text);
+}
+.gap-explanation {
+  font-size: 0.8rem; color: var(--color-muted); border-top: 1px dashed var(--color-border);
+  padding-top: var(--space-xs); line-height: 1.5;
+}
+
+.timetable-desktop-view {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); overflow-x: auto; margin-bottom: var(--space-xl);
+}
+.timetable-grid { width: 100%; border-collapse: collapse; min-width: 720px; }
+.timetable-grid th, .timetable-grid td {
+  border: 1px solid var(--color-border); padding: var(--space-sm); vertical-align: top; text-align: center;
+}
+.timetable-grid th { background: rgba(8, 13, 24, 0.7); font-size: 0.9rem; color: var(--color-accent); }
+.timetable-grid td { min-height: 90px; width: 20%; background: rgba(8, 13, 24, 0.2); }
+
+.meeting-block {
+  background: rgba(56, 189, 248, 0.12); border: 1px solid var(--color-primary);
+  border-right: 4px solid var(--color-primary); border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm); margin-bottom: var(--space-xs);
+  text-align: right; font-size: 0.8rem;
+}
+.meeting-block.is-lab {
+  border-color: var(--color-accent); border-right-color: var(--color-accent);
+  background: rgba(52, 211, 153, 0.12);
+}
+.meeting-title { font-weight: bold; color: var(--color-text); }
+.meeting-time { font-family: var(--font-code); font-size: 0.75rem; color: var(--color-primary); }
+
+.timetable-mobile-view { display: none; flex-direction: column; gap: var(--space-md); margin-bottom: var(--space-xl); }
+.day-agenda-card {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); padding: var(--space-md);
+}
+
+.conflict-report-card {
+  background: #2A1515; border: 1px solid var(--color-danger);
+  border-radius: var(--radius-card); padding: var(--space-lg); margin-top: var(--space-lg);
+}
+.conflict-report-card h4 { color: var(--color-danger); margin-bottom: var(--space-sm); font-size: 1.1rem; }
+.conflict-list { list-style: square; padding-right: var(--space-lg); color: #FECACA; font-size: 0.9rem; }
+
+/* بطاقات المواد */
+.courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); }
+.course-card {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-card); padding: var(--space-lg);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.course-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs); }
+.course-code { font-family: var(--font-code); color: var(--color-primary); font-size: 0.85rem; font-weight: bold; }
+.course-title { font-size: 1.2rem; color: var(--color-text); margin-bottom: var(--space-xs); }
+.course-meta { display: flex; gap: var(--space-xs); flex-wrap: wrap; margin-bottom: var(--space-md); }
+.badge-meta { font-size: 0.75rem; background: var(--color-bg); padding: 2px 8px; border-radius: 4px; color: var(--color-muted); border: 1px solid var(--color-border); }
+.progress-bar-bg { width: 100%; height: 6px; background: var(--color-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--color-border); }
+.progress-bar-fill { height: 100%; background: var(--color-primary); transition: width 0.3s ease; }
+
+/* ==========================================================================
+   تنسيقات شجرة المتطلبات التفاعلية (Curriculum Tree Design)
+   ========================================================================== */
+.tree-control-bar {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.tree-stats-row { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+.tree-stat-pill {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.tree-impact-card {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-card);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  color: #FEF3C7;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.tree-legend-box {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-color { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.legend-passed { background: var(--color-accent); }
+.legend-available { background: var(--color-primary); }
+.legend-locked { background: var(--color-border); }
+.legend-badge { font-size: 1rem; }
+
+.curriculum-tree-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  overflow-x: auto;
+}
+
+.curriculum-level-column {
+  background: rgba(17, 27, 46, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 250px;
+}
+
+.column-header {
+  font-weight: bold;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tree-course-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition);
+}
+.tree-course-card:hover { transform: translateY(-2px); border-color: var(--color-primary); }
+
+/* حالات المواد التفاعلية */
+.tree-course-card.status-passed {
+  border-right: 4px solid var(--color-accent);
+  background: rgba(52, 211, 153, 0.08);
+}
+.tree-course-card.status-available {
+  border-right: 4px solid var(--color-primary);
+  background: rgba(56, 189, 248, 0.08);
+}
+.tree-course-card.status-locked {
+  border-right: 4px solid var(--color-border);
+  opacity: 0.65;
+}
+
+/* تأثير مسار الخطر والتأثير */
+.tree-course-card.is-active-source {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
+}
+.tree-course-card.is-dependent-risk {
+  border-color: var(--color-warning) !important;
+  background: rgba(251, 191, 36, 0.15) !important;
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.4);
+}
+
+.tree-card-title { font-weight: bold; font-size: 0.95rem; color: var(--color-text); }
+.tree-card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--color-muted); }
+.tree-card-actions { display: flex; gap: 4px; justify-content: flex-end; margin-top: 4px; border-top: 1px dashed var(--color-border); padding-top: 4px; }
+
+/* النوافذ المنبثقة المرنة */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 13, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.modal-backdrop.is-open {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.modal-dialog {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-10px);
+  transition: transform 0.2s ease-in-out;
+}
+
+.modal-backdrop.is-open .modal-dialog { transform: translateY(0); }
+.modal-header { padding: var(--space-lg); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: 1.25rem; color: var(--color-text); }
+.modal-body { padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); }
+.modal-footer { padding: var(--space-md) var(--space-lg); border-top: 1px solid var(--color-border); display: flex; justify-content: flex-end; gap: var(--space-sm); }
+
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-label { font-size: 0.85rem; color: var(--color-text); font-weight: bold; }
+.form-help { font-size: 0.75rem; color: var(--color-muted); }
+.form-input, .form-select, .form-textarea {
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  color: var(--color-text); font-family: inherit; font-size: 0.9rem;
+  padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); outline: none;
+  transition: border-color var(--transition);
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-primary); }
+
+.icon-btn { background: transparent; border: none; color: var(--color-muted); cursor: pointer; padding: var(--space-xs); border-radius: 4px; }
+.icon-btn:hover { color: var(--color-text); }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+.info-card { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-lg); }
+.info-card h3 { color: var(--color-text); font-size: 1.2rem; margin-bottom: var(--space-sm); }
+.info-card p { color: var(--color-muted); font-size: 0.95rem; }
+
+.site-footer { border-top: 1px solid var(--color-border); padding: var(--space-xl) 0; background: var(--color-bg); margin-top: auto; }
+.footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); color: var(--color-muted); font-size: 0.85rem; }
+
+@media (max-width: 900px) {
+  .menu-toggle { display: block; }
+  .main-nav { display: none; position: absolute; top: 72px; right: 0; left: 0; background: var(--color-card); border-bottom: 1px solid var(--color-border); padding: var(--space-lg); }
+  .main-nav.is-open { display: block; }
+  .nav-links { flex-direction: column; }
+  .schedule-config-grid { grid-template-columns: 1fr; }
+  .curriculum-tree-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .timetable-desktop-view { display: none; }
+  .timetable-mobile-view { display: flex; }
+  .curriculum-tree-grid { grid-template-columns: 1fr; }
+}
+
+/* نظام مساحات العمل وتبديل الواجهات (Workspace Views) */
+.workspace-view {
+  display: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.workspace-view.active-view {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-link.active-nav {
+  color: var(--color-primary) !important;
+  background: rgba(56, 189, 248, 0.12);
+  font-weight: bold;
+}
+
+/* قواعد الطباعة النظيفة لملفات PDF */
+@media print {
+  body { background: #ffffff !important; color: #000000 !important; }
+  .site-header, .site-footer, .hero-section, .student-bar,
+  .curriculum-section, .study-plan-section, .courses-section, .majors-section, .tools-section, .about-section,
+  .schedule-config-grid, .schedule-tabs, .disclaimer-banner,
+  .btn, .icon-btn, .modal-backdrop, .skip-link, #btn-generate-schedule,
+  .global-search-wrapper, .study-toolbar-actions, .plan-view-tabs { display: none !important; }
+  .schedule-section { padding: 0 !important; border: none !important; display: block !important; }
+  .workspace-view { display: none !important; }
+  #schedule.workspace-view { display: block !important; }
+  #schedule-print-header { display: block !important; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; color: #000 !important; }
+  .timetable-desktop-view { display: block !important; background: #fff !important; border: 1px solid #000 !important; }
+  .timetable-grid th, .timetable-grid td { border: 1px solid #000 !important; color: #000 !important; background: #fff !important; }
+  .timetable-grid th { background: #f0f0f0 !important; font-weight: bold; }
+  .meeting-block { background: #fff !important; border: 1px solid #333 !important; border-right: 4px solid #000 !important; color: #000 !important; }
+  .meeting-title, .meeting-time, .meeting-loc { color: #000 !important; }
+  .schedule-metrics-box { background: #fff !important; border: 1px solid #666 !important; color: #000 !important; }
+  .timetable-mobile-view { display: none !important; }
+}.account-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.auth-user-chip{color:var(--color-muted);font-size:.82rem}.admin-hidden-section{display:none!important}.auth-page{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at top right,rgba(56,189,248,.12),transparent 35%),var(--color-bg)}.auth-shell{width:min(1000px,100%);display:grid;grid-template-columns:1fr 1.1fr;background:var(--color-card);border:1px solid var(--color-border);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.35)}.auth-side,.auth-main{padding:40px}.auth-side{background:linear-gradient(145deg,rgba(56,189,248,.12),rgba(52,211,153,.05));display:flex;flex-direction:column;justify-content:space-between;gap:28px}.auth-side p,.auth-note{color:var(--color-muted);line-height:1.8}.auth-demo{border:1px dashed var(--color-primary);border-radius:14px;padding:16px;background:rgba(56,189,248,.05)}.auth-demo code{direction:ltr;display:block;color:var(--color-accent);margin-top:4px}.auth-tabs{display:flex;gap:5px;background:var(--color-bg);padding:5px;border:1px solid var(--color-border);border-radius:12px;margin-bottom:24px}.auth-tab{flex:1;border:0;background:transparent;color:var(--color-muted);padding:10px;border-radius:9px;cursor:pointer;font:700 .9rem inherit}.auth-tab.active{background:var(--color-primary);color:#061018}.auth-panel{display:none}.auth-panel.active{display:block}.form-message{padding:10px 12px;border-radius:10px;margin:12px 0;display:none}.form-message.error{display:block;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35);color:#fecaca}.form-message.success{display:block;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.35);color:#bbf7d0}.password-wrap{position:relative}.password-wrap .form-input{padding-left:70px}.password-toggle{position:absolute;left:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--color-primary);cursor:pointer;font-family:inherit}.admin-layout{min-height:100vh;display:grid;grid-template-columns:260px 1fr;background:var(--color-bg)}.admin-sidebar{position:sticky;top:0;height:100vh;padding:22px 16px;background:#0b1018;border-left:1px solid var(--color-border);display:flex;flex-direction:column}.admin-brand{padding:8px 8px 20px;border-bottom:1px solid var(--color-border);margin-bottom:16px}.admin-nav{display:flex;flex-direction:column;gap:6px}.admin-nav button{text-align:right;border:1px solid transparent;background:transparent;color:var(--color-muted);padding:11px;border-radius:10px;font-family:inherit;cursor:pointer}.admin-nav button.active,.admin-nav button:hover{background:rgba(56,189,248,.1);color:var(--color-primary);border-color:rgba(56,189,248,.2)}.admin-side-actions{margin-top:auto;display:grid;gap:8px}.admin-main{padding:28px;min-width:0}.admin-topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:22px}.admin-view{display:none}.admin-view.active{display:block}.admin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.admin-card{background:var(--color-card);border:1px solid var(--color-border);border-radius:16px;padding:20px}.admin-stat{font-size:2rem;font-weight:800;color:var(--color-primary);margin-top:8px}.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.section-toggle-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.section-toggle{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--color-border);border-radius:10px;padding:12px}.admin-table-wrap{overflow:auto;border:1px solid var(--color-border);border-radius:14px}.admin-table{width:100%;border-collapse:collapse;min-width:760px}.admin-table th,.admin-table td{padding:11px;border-bottom:1px solid var(--color-border);text-align:right;vertical-align:middle}.admin-table th{color:var(--color-muted);font-size:.82rem}.admin-toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:14px}.admin-toolbar .form-group{margin:0;min-width:180px}@media(max-width:900px){.auth-shell{grid-template-columns:1fr}.auth-side{display:none}.admin-layout{grid-template-columns:1fr}.admin-sidebar{position:relative;height:auto}.admin-nav{flex-direction:row;overflow:auto}.admin-side-actions{margin-top:14px;grid-template-columns:1fr 1fr}.admin-grid,.admin-form-grid,.section-toggle-list{grid-template-columns:1fr}.account-actions{width:100%;justify-content:center}}
+
+/* تحسينات أمان كلمة المرور في بوابة سند */
+.password-strength{margin-top:9px;padding:12px 13px;background:rgba(8,13,24,.45);border:1px solid var(--color-border);border-radius:11px}
+.password-strength.compact .password-rules{display:none}
+.strength-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.78rem;color:var(--color-muted)}
+.strength-label{font-size:.8rem;color:var(--color-muted)}
+.strength-bars{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}
+.strength-bars i{height:5px;border-radius:99px;background:#26344D;transition:all .2s ease}
+.password-strength[data-level="1"] .strength-bars i.filled{background:#F87171}
+.password-strength[data-level="2"] .strength-bars i.filled{background:#FBBF24}
+.password-strength[data-level="3"] .strength-bars i.filled,
+.password-strength[data-level="4"] .strength-bars i.filled{background:#34D399}
+.password-strength[data-level="1"] .strength-label{color:#F87171}
+.password-strength[data-level="2"] .strength-label{color:#FBBF24}
+.password-strength[data-level="3"] .strength-label,
+.password-strength[data-level="4"] .strength-label{color:#34D399}
+.password-rules{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:9px 0 0;padding:0;list-style:none;color:var(--color-muted);font-size:.72rem}
+.password-rules li::before{content:'○';margin-left:5px;color:var(--color-muted)}
+.password-rules li.valid{color:#BBF7D0}
+.password-rules li.valid::before{content:'✓';color:#34D399;font-weight:bold}
+.password-wrap .icon-toggle{left:9px;width:34px;height:34px;display:grid;place-items:center;padding:0;color:var(--color-primary);font-size:1.15rem}
+.password-wrap .icon-toggle .eye-icon{line-height:1;pointer-events:none}
+.confirm-status{min-height:20px;margin-top:5px;font-size:.75rem;font-weight:bold}
+.confirm-status.valid{color:#34D399}
+.confirm-status.invalid{color:#F87171}
+.form-input.input-valid{border-color:#34D399;box-shadow:0 0 0 2px rgba(52,211,153,.08)}
+.form-input.input-invalid{border-color:#F87171;box-shadow:0 0 0 2px rgba(248,113,113,.08)}
+
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">الانتقال إلى المحتوى الرئيسي</a>
+
+  <!-- الشريط العلوي -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="brand">
+        <span class="brand-name" data-site-key="brandName">سند الطالب</span>
+        <span class="brand-tag">[SANAD]</span>
+      </a>
+
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="تبديل القائمة">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="التنقل الرئيسي">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link">الرئيسية</a></li>
+          <li><a href="#curriculum" class="nav-link" style="color:var(--color-primary); font-weight:bold;">شجرة المتطلبات 🌳</a></li>
+          <li><a href="#study-plan" class="nav-link" style="color:var(--color-accent); font-weight:bold;">خطة الدراسة</a></li>
+          <li><a href="#schedule" class="nav-link" style="color:var(--color-primary); font-weight:bold;">رتّب دوامي</a></li>
+          <li><a href="#my-courses" class="nav-link">تخصصي وموادي</a></li>
+          <li><a href="#majors" class="nav-link">التخصصات</a></li>
+          <li><a href="#tools" class="nav-link">الأدوات</a></li>
+          <li><a href="#about" class="nav-link">عن سند</a></li>
+        </ul>
+      </nav>
+      <div class="account-actions"><span id="auth-user-chip" class="auth-user-chip"></span><a href="./admin.html" id="admin-panel-link" class="btn btn-accent btn-sm" title="لوحة الأدمن" aria-label="لوحة الأدمن">⚙️ الأدمن</a><button type="button" id="btn-logout" class="btn btn-secondary btn-sm">تسجيل خروج</button></div>
+    </div>
+  </header>
+
+  <main id="main-content" class="container" tabindex="-1">
+
+    <!-- تنبيه البيانات التالفة مع زر تصفير آمن -->
+    <div id="corrupted-data-banner" class="alert-banner" style="display: none;" role="alert">
+      <span>⚠️</span>
+      <div style="flex-grow: 1;">
+        <strong>تنبيه بخصوص البيانات:</strong>
+        <p id="corruption-message" style="font-size: 0.9rem; margin-top: 4px;"></p>
+      </div>
+      <button type="button" class="btn btn-danger btn-sm" id="btn-factory-reset">إعادة ضبط الذاكرة</button>
+    </div>
+
+    <!-- ترويسة خاصة بالطباعة الورقية فقط -->
+    <div id="schedule-print-header" style="display: none;">
+      <h2>سند الطالب | SANAD — الجدول الدراسي والامتحانات</h2>
+      <p style="font-size: 14px; margin-top: 4px;">جامعة البلقاء التطبيقية • كلية الذكاء الاصطناعي</p>
+    </div>
+
+    <!-- شريط الطالب والخصوصية الدائم -->
+    <section class="student-bar" aria-label="بيانات الطالب">
+      <div class="student-info">
+        <div class="student-name" id="student-greeting">مساحة دراستك في كلية الذكاء الاصطناعي</div>
+        <div class="student-tags">
+          <span class="tag-badge" id="student-major-badge" style="display:none;"></span>
+          <span class="tag-badge" id="student-plan-badge" style="display:none;"></span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+        <span class="storage-privacy-note">🔒 مجاني بالكامل • بياناتك تُعالج محلياً في جهازك فقط</span>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-edit-profile">تعديل بياناتي</button>
+      </div>
+    </section>
+
+    <!-- واجهة 1: الرئيسية والترحيب والبحث -->
+    <section id="hero" class="hero-section workspace-view active-view" aria-labelledby="hero-heading">
+      <div class="hero-pre" data-site-key="heroPre">كلية الذكاء الاصطناعي • جامعة البلقاء التطبيقية</div>
+      <h1 id="hero-heading" class="hero-title" data-site-key="heroTitle" data-site-html="true">
+        مساحة دراسية تمكّنك من <span>تنظيم ومقارنة جدولك ومذاكرتك</span>
+      </h1>
+      <p class="hero-desc" data-site-key="heroDesc">
+        مبادرة طلابية مستقلة لخدمة طلبة الكلية في توثيق المواد، تتبع المتطلبات الأكاديمية، توليد الجداول الخالية من التعارضات، وبناء خطط المذاكرة.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#curriculum" class="btn btn-primary">شجرة المتطلبات التفاعلية 🌳</a>
+        <a href="#study-plan" class="btn btn-accent">خطة الدراسة والمذاكرة 📚</a>
+        <a href="#schedule" class="btn btn-secondary">رتّب دوامك 📅</a>
+      </div>
+
+      <div class="global-search-wrapper">
+        <div class="search-input-box">
+          <input type="search" id="global-search-input" placeholder="ابحث بالاسم أو الرمز في المواد، الموضوعات، والمصادر..." autocomplete="off">
+          <span style="color: var(--color-muted);">🔍</span>
+        </div>
+        <div id="search-results-panel" class="search-results-panel" role="region" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- واجهة شجرة المتطلبات التفاعلية لجميع التخصصات والخطط -->
+    <section id="curriculum" class="curriculum-section workspace-view" aria-labelledby="curriculum-heading">
+      <div class="section-header">
+        <div class="section-pre">خريطة المواد التفاعلية • تتبع فتح المواد ومسار الخطر</div>
+        <h2 id="curriculum-heading" class="section-title">شجرة المتطلبات الأكاديمية</h2>
+      </div>
+
+      <!-- شريط التحكم باختيار التخصص والتبديل بين الخطط -->
+      <div class="tree-control-bar">
+        <div style="display:flex; gap:var(--space-md); align-items:center; flex-wrap:wrap;">
+          <div class="form-group" style="margin:0;">
+            <select id="tree-major-select" class="form-select" style="min-width:240px; font-weight:bold;">
+              <option value="virtual_reality" selected>الواقع الافتراضي</option>
+              <option value="cyber_security">أمن المعلومات والفضاء الإلكتروني</option>
+              <option value="ai_robotics">الذكاء الاصطناعي والروبوتات</option>
+              <option value="digital_forensics">التحقيقات الجنائية الرقمية</option>
+              <option value="data_science">علم البيانات والذكاء الاصطناعي</option>
+              <option value="software_eng">هندسة البرمجيات</option>
+              <option value="computer_science">علم الحاسوب</option>
+            </select>
+          </div>
+          <div class="plan-view-tabs">
+            <button type="button" class="plan-tab-btn" id="btn-era-new">🌟 الخطة الجديدة</button>
+            <button type="button" class="plan-tab-btn active" id="btn-era-old">📜 الخطة القديمة</button>
+          </div>
+        </div>
+
+        <div class="tree-stats-row">
+          <div class="tree-stat-pill">
+            <span>🟢 المجتازة:</span> <strong id="tree-passed-count">0</strong>
+          </div>
+          <div class="tree-stat-pill">
+            <span>🔵 المفتوحة:</span> <strong id="tree-available-count">0</strong>
+          </div>
+          <div class="tree-stat-pill">
+            <span>🔒 المغلقة:</span> <strong id="tree-locked-count">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div id="tree-impact-banner" class="tree-impact-card" style="display: none;"></div>
+
+      <div class="tree-legend-box">
+        <div class="legend-item"><span class="legend-color legend-passed"></span> مادة اجتزتها بنجاح</div>
+        <div class="legend-item"><span class="legend-color legend-available"></span> مفتوحة للتسجيل هذا الفصل</div>
+        <div class="legend-item"><span class="legend-color legend-locked"></span> مقفلة (ينقصها متطلب سابق)</div>
+        <div class="legend-item"><span class="legend-badge">🔬</span> مادة لها مختبر عملي</div>
+        <div class="legend-item"><span class="legend-badge">⭐</span> مادة تخصص اختيارية</div>
+      </div>
+
+      <div id="curriculum-tree-container" class="curriculum-tree-grid"></div>
+    </section>
+
+    <!-- واجهة «خطة الدراسة» -->
+    <section id="study-plan" class="study-plan-section workspace-view" aria-labelledby="study-plan-heading">
+      <div class="section-header">
+        <div class="section-pre">الأداة الثالثة المفعلة • تنظيم المذاكرة والامتحانات</div>
+        <h2 id="study-plan-heading" class="section-title">خطة الدراسة</h2>
+      </div>
+
+      <div id="study-plan-schedule-alert" class="alert-banner" style="display: none; margin-bottom: var(--space-lg);" role="alert">
+        <span>⚠️</span>
+        <div>
+          <strong>تنبيه: تم تعديل جدول المحاضرات بعد توليد خطتك الدراسية!</strong>
+          <p style="font-size: 0.85rem; margin-top: 2px;">
+            يُرجى الضغط على «🔄 إعادة توزيع الخطة» للتأكد من عدم وجود تعارض مع المحاضرات المستجدة.
+          </p>
+        </div>
+      </div>
+
+      <div id="study-plan-deficit-card" class="deficit-card" style="display: none;"></div>
+
+      <div class="plan-stats-card">
+        <div class="plan-stats-header">
+          <div>
+            <div style="font-size: 1.15rem; font-weight: bold; color: var(--color-text);">
+              مستوى الإنجاز الدراسي: <span id="plan-progress-pct-text" style="color: var(--color-accent);">0%</span>
+            </div>
+            <div id="plan-progress-hours-text" style="font-size: 0.85rem; color: var(--color-muted); margin-top: 2px;">
+              0 من 0 ساعة مكتملة
+            </div>
+          </div>
+
+          <div class="study-toolbar-actions">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-open-add-study-task">+ إضافة مهمة دراسية</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-open-study-settings">⚙ إعدادات الفراغ والجلسات</button>
+            <button type="button" class="btn btn-accent btn-sm" id="btn-trigger-redistribute">🔄 إعادة توزيع الخطة</button>
+          </div>
+        </div>
+
+        <div class="progress-bar-bg" style="height: 8px;">
+          <div id="plan-progress-bar-fill" class="progress-bar-fill" style="width: 0%; background: var(--color-accent);"></div>
+        </div>
+
+        <details style="border-top: 1px solid var(--color-border); padding-top: 8px; font-size: 0.85rem; color: var(--color-muted);">
+          <summary style="cursor: pointer; color: var(--color-primary); font-weight: bold;">📋 عرض وإدارة الموضوعات المسجلة في الخطة</summary>
+          <div id="study-tasks-manager-list" style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;"></div>
+        </details>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm); border-top: 1px solid var(--color-border); padding-top: var(--space-sm);">
+          <div class="plan-view-tabs">
+            <button type="button" class="plan-tab-btn active" id="plan-tab-today">📅 خطة اليوم</button>
+            <button type="button" class="plan-tab-btn" id="plan-tab-week">🗓️ خطة الأسبوع الكاملة</button>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--color-muted);">💡 الناتج توزيع مقترح وفق القواعد المحددة.</span>
+        </div>
+      </div>
+
+      <div id="plan-view-today"></div>
+      <div id="plan-view-week" style="display: none;"></div>
+    </section>
+
+    <!-- واجهة «رتّب دوامي» -->
+    <section id="schedule" class="schedule-section workspace-view" aria-labelledby="schedule-heading">
+      <div class="section-header">
+        <div class="section-pre">الأداة الثانية المفعلة</div>
+        <h2 id="schedule-heading" class="section-title">رتّب دوامي</h2>
+      </div>
+
+      <div class="disclaimer-banner" role="note">
+        <span>ℹ️</span>
+        <span><strong>تنويه:</strong> الجداول مبنية على مدخلاتك، ولا تعكس توفر المقاعد في الجامعة.</span>
+      </div>
+
+      <div id="saved-schedule-outdated-alert" class="alert-banner" style="display: none; margin-bottom: var(--space-lg);" role="alert">
+        <span>⚠️</span>
+        <div>
+          <strong>تنبيه: يحتاج الجدول المحفوظ إلى مراجعة!</strong>
+          <p style="font-size: 0.85rem; margin-top: 2px;">تم تعديل بعض الشعب بعد حفظ جدولك الحالي؛ يُرجى إعادة توليد الجدول.</p>
+        </div>
+      </div>
+
+      <div class="schedule-config-grid">
+        <div class="config-card">
+          <div class="config-card-title">
+            <span>1. المواد والشعب المتاحة للتوليد</span>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="btn btn-accent btn-sm" id="btn-open-smart-import">⚡ استيراد ذكي</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-open-add-section">+ إضافة يدوية</button>
+            </div>
+          </div>
+          <span class="form-help">حدد المواد التي ترغب بتضمينها في الجدول:</span>
+          <div id="schedule-course-picker" class="course-schedule-picker"></div>
+          <div style="margin-top: var(--space-sm);">
+            <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 6px;">الشُعب الجاهزة ومواعيدها:</div>
+            <div id="schedule-sections-list" class="sections-manager-box"></div>
+          </div>
+        </div>
+
+        <div class="config-card">
+          <div class="config-card-title"><span>2. القيود الإلزامية والتفضيلات</span></div>
+          <div style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-md);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-bottom: 8px;">
+              <div class="form-group">
+                <label for="constraint-earliest" class="form-label">أبكر بداية</label>
+                <input type="time" id="constraint-earliest" class="form-input" value="08:00">
+              </div>
+              <div class="form-group">
+                <label for="constraint-latest" class="form-label">آخر نهاية</label>
+                <input type="time" id="constraint-latest" class="form-input" value="18:00">
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label for="constraint-travel-buffer" class="form-label">وقت الانتقال بين المحاضرات الوجاهية</label>
+              <select id="constraint-travel-buffer" class="form-select">
+                <option value="0">0 دقائق</option>
+                <option value="5">5 دقائق</option>
+                <option value="10" selected>10 دقائق</option>
+                <option value="15">15 دقيقة</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label class="form-label">يوم ممنوع للحضور تماماً:</label>
+              <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; font-size: 0.85rem;">
+                <label><input type="checkbox" name="forbidden-days" value="sun"> الأحد</label>
+                <label><input type="checkbox" name="forbidden-days" value="mon"> الإثنين</label>
+                <label><input type="checkbox" name="forbidden-days" value="tue"> الثلاثاء</label>
+                <label><input type="checkbox" name="forbidden-days" value="wed"> الأربعاء</label>
+                <label><input type="checkbox" name="forbidden-days" value="thu"> الخميس</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="form-label">فترات ممنوعة (أوقات عمل / استراحة):</label>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-open-add-blocked" style="padding: 2px 6px; font-size: 0.75rem;">+ إضافة فترة</button>
+              </div>
+              <div id="blocked-times-list" style="display: flex; flex-direction: column; gap: 4px;"></div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" id="btn-generate-schedule" style="margin-top: var(--space-sm); width: 100%;">
+            ⚡ توليد ومقارنة الجداول الصالحة
+          </button>
+        </div>
+      </div>
+
+      <div id="schedule-conflict-report" class="conflict-report-card" style="display: none;"></div>
+
+      <div id="schedule-results-container" class="schedules-results-wrapper" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div id="schedule-tabs-container" class="schedule-tabs"></div>
+          <div style="display: flex; gap: var(--space-sm);">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-print-this-schedule">🖨 طباعة الجدول (PDF)</button>
+            <button type="button" class="btn btn-accent btn-sm" id="btn-save-this-schedule">💾 حفظ كجدولي المعتمد</button>
+          </div>
+        </div>
+
+        <div class="schedule-metrics-box">
+          <div id="schedule-metrics-pills" class="metrics-row"></div>
+          <div id="schedule-unmet-preferences"></div>
+        </div>
+
+        <div class="timetable-desktop-view">
+          <table class="timetable-grid">
+            <thead>
+              <tr><th>الأحد</th><th>الإثنين</th><th>الثلاثاء</th><th>الأربعاء</th><th>الخميس</th></tr>
+            </thead>
+            <tbody id="timetable-grid-body"></tbody>
+          </table>
+        </div>
+        <div id="timetable-mobile-list" class="timetable-mobile-view"></div>
+      </div>
+    </section>
+
+    <!-- واجهة «تخصصي وموادي» -->
+    <section id="my-courses" class="courses-section workspace-view" aria-labelledby="courses-heading">
+      <div class="section-header">
+        <div class="section-pre">الأداة الأولى</div>
+        <h2 id="courses-heading" class="section-title">تخصصي وموادي</h2>
+      </div>
+
+      <div id="courses-list-view">
+        <div class="courses-toolbar" style="background:var(--color-card); border:1px solid var(--color-border); border-radius:var(--radius-card); padding:var(--space-md); margin-bottom:var(--space-lg); display:flex; justify-content:space-between; align-items:center; gap:var(--space-md); flex-wrap:wrap;">
+          <input type="search" id="course-search-input" class="form-input" placeholder="بحث بالاسم أو الرمز..." style="width: 220px;">
+          <button type="button" class="btn btn-primary" id="btn-open-add-course">+ إضافة مادة جديدة</button>
+        </div>
+        <div id="courses-grid" class="courses-grid"></div>
+      </div>
+
+      <div id="course-details-view" class="course-details-view" style="display:none;">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-back-to-courses" style="margin-bottom: var(--space-md);">← العودة إلى قائمة المواد</button>
+        <div class="info-card" style="margin-bottom: var(--space-lg);">
+          <span class="course-code" id="detail-course-code"></span>
+          <h3 class="course-title" id="detail-course-name" style="font-size: 1.8rem; margin-top: 8px;"></h3>
+          <div class="course-meta" style="margin-top: 8px; display:flex; gap:8px;">
+            <span class="badge-meta" id="detail-course-class"></span>
+            <span class="badge-meta" id="detail-course-hours"></span>
+          </div>
+          <p id="detail-course-desc" style="margin-top: 12px; color: var(--color-muted);"></p>
+        </div>
+        <div class="topics-container">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h4 style="font-size: 1.3rem; color: var(--color-text);">موضوعات المادة ومصادرها</h4>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-open-add-topic">+ إضافة موضوع للمادة</button>
+          </div>
+          <div id="detail-topics-list" class="topics-list" style="display:flex; flex-direction:column; gap:var(--space-md);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة «التخصصات» -->
+    <section id="majors" class="majors-section workspace-view">
+      <div class="section-header">
+        <div class="section-pre">الكلية والبرامج</div>
+        <h2 class="section-title">تخصصات كلية الذكاء الاصطناعي</h2>
+      </div>
+      <div class="cards-grid">
+        <article class="info-card"><h3>الواقع الافتراضي</h3><p>بيئات المحاكاة، الرسوم ثلاثية الأبعاد، وتطوير الألعاب التفاعلية.</p></article>
+        <article class="info-card"><h3>أمن المعلومات والفضاء الإلكتروني</h3><p>حماية الأنظمة والشبكات، التشفير المتقدم، والسياسات الأمنية.</p></article>
+        <article class="info-card"><h3>الذكاء الاصطناعي والروبوتات</h3><p>الأنظمة الذكية، تعلم الآلة، والتحكم بالروبوتات.</p></article>
+        <article class="info-card"><h3>التحقيقات الجنائية الرقمية</h3><p>جمع واستخراج الأدلة الرقمية وتحليل الحوادث واستعادة البيانات والتحقيق في الجرائم الإلكترونية.</p></article>
+        <article class="info-card"><h3>علم البيانات والذكاء الاصطناعي</h3><p>تحليل البيانات الضخمة وبناء النماذج التنبؤية.</p></article>
+        <article class="info-card"><h3>هندسة البرمجيات</h3><p>تصميم النظم البرمجية الكبيرة وإدارة دورة حياتها.</p></article>
+        <article class="info-card"><h3>علم الحاسوب</h3><p>الخوارزميات، بنية الحواسب، والأساس النظري والعملي.</p></article>
+      </div>
+    </section>
+
+    <!-- واجهة «الأدوات» -->
+    <section id="tools" class="tools-section workspace-view">
+      <div class="section-header">
+        <div class="section-pre">أدوات الطالب</div>
+        <h2 class="section-title">حزمة أدوات سند</h2>
+      </div>
+      <div class="cards-grid">
+        <article class="info-card" style="border-color: var(--color-primary); cursor: pointer;" onclick="location.hash='#curriculum'">
+          <span class="tag-badge" style="margin-bottom: 8px;">جديدة وحصرية 🌳</span>
+          <h3>شجرة المتطلبات التفاعلية ↗</h3>
+          <p>تتبع فتح المواد واكتشاف المسارات التي تتعطل عليك في الخطة قبل موعد التسجيل.</p>
+        </article>
+        <article class="info-card" style="border-color: var(--color-accent); cursor: pointer;" onclick="location.hash='#study-plan'">
+          <span class="tag-badge" style="margin-bottom: 8px;">مفعلة بالكامل</span>
+          <h3>خطة الدراسة ↗</h3>
+          <p>تنظيم ومتابعة مذاكرة المواد وجلسات الامتحانات ومراجعتها دون تعارض مع جدولك.</p>
+        </article>
+        <article class="info-card" style="border-color: var(--color-primary); cursor: pointer;" onclick="location.hash='#schedule'">
+          <span class="tag-badge" style="margin-bottom: 8px;">مفعلة بالكامل</span>
+          <h3>رتّب دوامي ↗</h3>
+          <p>توليد ومقارنة حتى 3 جداول خالية من التعارضات وفق قيودك بدقة.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- واجهة «عن سند» -->
+    <section id="about" class="about-section workspace-view">
+      <div class="section-header">
+        <div class="section-pre" data-site-key="aboutPre">عن المشروع</div>
+        <h2 class="section-title" data-site-key="aboutTitle">سند الطالب: مساحة مستقلة</h2>
+      </div>
+      <div class="info-card" style="line-height: 1.8;">
+        <p data-site-key="aboutText" data-site-html="true">مشروع <strong>«سند الطالب | SANAD»</strong> هو مبادرة طلابية وتطوعية مستقلة صُممت لتقديم مساحة تقنية نظيفة وسريعة لدعم طلبة كلية الذكاء الاصطناعي بجامعة البلقاء التطبيقية دون أي تكاليف أو إعلانات.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div data-site-key="footerText">سند الطالب | SANAD — مبادرة طلابية مستقلة</div>
+      <div>نظام تشغيل محلي بالكامل دون إعلانات أو تتبع</div>
+    </div>
+  </footer>
+
+  <!-- النوافذ المنبثقة الذكية (Modals) -->
+  <div id="modal-study-task" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">إضافة مهمة دراسية / موضوع للمذاكرة</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-study-task">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="select-study-task-course" class="form-label">المادة الدراسية *</label>
+            <select id="select-study-task-course" class="form-select" required></select>
+          </div>
+          <div class="form-group">
+            <label for="select-study-task-topic" class="form-label">اختر موضوعاً سابقاً أو اكتب موضوعاً جديداً:</label>
+            <select id="select-study-task-topic" class="form-select"></select>
+            <input type="text" id="input-study-task-new-topic" class="form-input" placeholder="عنوان الموضوع (مثال: خوارزميات البحث)" required style="margin-top: 4px;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label for="input-study-task-minutes" class="form-label">الوقت التقديري المتبقي (بالدقائق) *</label>
+              <input type="number" id="input-study-task-minutes" class="form-input" value="120" min="20" step="10" required>
+            </div>
+            <div class="form-group">
+              <label for="select-study-task-worktype" class="form-label">نوع العمل</label>
+              <select id="select-study-task-worktype" class="form-select">
+                <option value="theory">📖 دراسة نظرية ومفاهيم</option>
+                <option value="practical">💻 تطبيق عملي وكود</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label for="select-study-task-diff" class="form-label">الصعوبة</label>
+              <select id="select-study-task-diff" class="form-select">
+                <option value="easy">سهل</option>
+                <option value="medium" selected>متوسط</option>
+                <option value="hard">صعب</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="select-study-task-prio" class="form-label">الأولوية</label>
+              <select id="select-study-task-prio" class="form-select">
+                <option value="low">عادية</option>
+                <option value="medium" selected>متوسطة</option>
+                <option value="high">عالية</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="select-study-task-und" class="form-label">مستوى الفهم</label>
+              <select id="select-study-task-und" class="form-select">
+                <option value="not_started" selected>لم أبدأ</option>
+                <option value="needs_review">بحاجة مراجعة</option>
+                <option value="mastered">متمكن</option>
+              </select>
+            </div>
+          </div>
+          <div style="border-top: 1px solid var(--color-border); padding-top: var(--space-sm); margin-top: 4px;">
+            <div style="font-size: 0.85rem; font-weight: bold; color: var(--color-warning); margin-bottom: 6px;">موعد الامتحان أو التسليم:</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+              <div class="form-group">
+                <label for="input-study-task-examdate" class="form-label">تاريخ الامتحان / التسليم</label>
+                <input type="date" id="input-study-task-examdate" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="input-study-task-examtime" class="form-label">وقت الامتحان</label>
+                <input type="time" id="input-study-task-examtime" class="form-input" value="10:00">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top: 6px;">
+              <label for="input-study-task-reviewmins" class="form-label">وقت المراجعة قبل الامتحان (بالدقائق):</label>
+              <input type="number" id="input-study-task-reviewmins" class="form-input" value="60" min="0" step="15">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ المهمة وتحديث الخطة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-study-settings" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙ إعدادات فترات الفراغ والجلسات</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-study-settings">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label for="input-study-start-date" class="form-label">تاريخ بداية الخطة</label>
+              <input type="date" id="input-study-start-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="input-study-end-date" class="form-label">تاريخ نهاية الخطة</label>
+              <input type="date" id="input-study-end-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label for="input-study-daily-start" class="form-label">وقت بدء المذاكرة اليومي</label>
+              <input type="time" id="input-study-daily-start" class="form-input" value="16:00" required>
+            </div>
+            <div class="form-group">
+              <label for="input-study-daily-end" class="form-label">وقت انتهاء المذاكرة اليومي</label>
+              <input type="time" id="input-study-daily-end" class="form-input" value="22:00" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label for="input-study-session-len" class="form-label">مدة جلسة الدراسة (بالدقائق)</label>
+              <input type="number" id="input-study-session-len" class="form-input" value="50" min="20" max="120" required>
+            </div>
+            <div class="form-group">
+              <label for="input-study-break-len" class="form-label">مدة الاستراحة بين الجلسات</label>
+              <input type="number" id="input-study-break-len" class="form-input" value="10" min="5" max="60" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-study-transit-buffer" class="form-label">فترة الراحة والمواصلات بعد المحاضرات (بالدقائق)</label>
+            <input type="number" id="input-study-transit-buffer" class="form-input" value="15" min="0">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-partial-complete" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3 class="modal-title">تسجيل إنجاز جزئي للجلسة</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-partial-complete">
+        <div class="modal-body">
+          <p style="font-size: 0.85rem; color: var(--color-muted);">
+            كم دقيقة درستها بالفعل من إجمالي (<span id="partial-session-duration-max">50</span> دقيقة)؟
+          </p>
+          <div class="form-group" style="margin-top: 8px;">
+            <label for="input-partial-minutes" class="form-label">الدقائق المنجزة:</label>
+            <input type="number" id="input-partial-minutes" class="form-input" min="5" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-accent">تأكيد الإنجاز</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-edit-session-time" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">تعديل توقيت الجلسة يدوياً</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-edit-session-time">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="input-edit-session-date" class="form-label">اليوم والتاريخ</label>
+            <input type="date" id="input-edit-session-date" class="form-input" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label for="input-edit-session-start" class="form-label">وقت البداية</label>
+              <input type="time" id="input-edit-session-start" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="input-edit-session-end" class="form-label">وقت النهاية</label>
+              <input type="time" id="input-edit-session-end" class="form-input" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ التعديل</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-redistribute-preview" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">🔄 تأكيد إعادة توزيع الخطة الدراسية</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <div class="modal-body"><div id="redistribute-preview-content"></div></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>
+        <button type="button" class="btn btn-accent" id="btn-confirm-redistribute">تأكيد واستبدال الخطة</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-smart-import" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title">⚡ استيراد الشُعب وبناء الجدول تلقائياً</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="import-tabs-bar">
+          <button type="button" class="import-tab-btn active" id="tab-btn-paste">📋 لصق نص الجدول (فوري 100%)</button>
+          <button type="button" class="import-tab-btn" id="tab-btn-image">📸 رفع صورة لقطة الشاشة</button>
+        </div>
+        <div id="import-mode-paste" class="import-mode-content">
+          <div class="form-group">
+            <label for="smart-paste-textarea" class="form-label">انسخي جدول الشعب من البوابة والصقيه هنا:</label>
+            <textarea id="smart-paste-textarea" class="form-textarea" rows="5" placeholder="مثال: ذكاء اصطناعي 1 ح ث خ 09:30 - 11:00"></textarea>
+          </div>
+          <button type="button" class="btn btn-accent" id="btn-parse-pasted-text" style="width: 100%; margin-top: 4px;">🔍 استخراج الشعب فوراً</button>
+        </div>
+        <div id="import-mode-image" class="import-mode-content" style="display: none;">
+          <div class="ocr-dropzone" id="ocr-dropzone">
+            <span style="font-size: 2.2rem;">📸</span>
+            <div style="font-weight: bold; margin-top: 4px;">اضغطي لاختيار لقطة الشاشة</div>
+            <input type="file" id="ocr-file-input" accept="image/*" style="display: none;">
+          </div>
+          <div id="ocr-progress-box" class="ocr-progress-box" style="display: none;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+              <span id="ocr-status-text">جارٍ المسح...</span>
+              <span id="ocr-percentage-text">0%</span>
+            </div>
+            <div class="progress-bar-bg"><div id="ocr-progress-fill" class="progress-bar-fill" style="width: 0%;"></div></div>
+          </div>
+        </div>
+        <div id="import-preview-section" style="display: none; border-top: 1px solid var(--color-border); padding-top: var(--space-md); margin-top: var(--space-md);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <strong style="color: var(--color-accent); font-size: 0.95rem;">الشُعب المستخرجة:</strong>
+            <span id="parsed-count-badge" class="tag-badge">0 شعب</span>
+          </div>
+          <div id="parsed-sections-container" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+        <button type="button" class="btn btn-accent" id="btn-confirm-save-imported" style="display: none;">⚡ اعتماد وبناء الجداول فوراً</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-section" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">إضافة شعبة يدوياً</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-section">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="select-section-course" class="form-label">المادة التابعة لها الشعبة</label>
+            <select id="select-section-course" class="form-select" required></select>
+          </div>
+          <div class="form-group">
+            <label for="input-section-number" class="form-label">رقم الشعبة</label>
+            <input type="text" id="input-section-number" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--color-warning);">
+              <input type="checkbox" id="check-pin-section"> تثبيت هذه الشعبة
+            </label>
+          </div>
+          <div style="border-top: 1px solid var(--color-border); padding-top: var(--space-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="form-label">لقاءات الشعبة:</span>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-add-meeting-row">+ إضافة لقاء</button>
+            </div>
+            <div id="meetings-rows-container"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ الشعبة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-blocked-time" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">إضافة فترة ممنوعة / التزام</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-blocked-time">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="input-blocked-title" class="form-label">عنوان الالتزام (مثال: عمل جزئي، استراحة)</label>
+            <input type="text" id="input-blocked-title" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="select-blocked-day" class="form-label">اليوم</label>
+            <select id="select-blocked-day" class="form-select" required>
+              <option value="sun">الأحد</option>
+              <option value="mon">الإثنين</option>
+              <option value="tue">الثلاثاء</option>
+              <option value="wed">الأربعاء</option>
+              <option value="thu">الخميس</option>
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-md);">
+            <div class="form-group">
+              <label for="input-blocked-start" class="form-label">وقت البداية</label>
+              <input type="time" id="input-blocked-start" class="form-input" value="13:00" required>
+            </div>
+            <div class="form-group">
+              <label for="input-blocked-end" class="form-label">وقت النهاية</label>
+              <input type="time" id="input-blocked-end" class="form-input" value="14:00" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ الفترة الممنوعة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-topic" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">إضافة موضوع دراسي للمادة</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-topic">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="input-topic-title" class="form-label">عنوان الموضوع *</label>
+            <input type="text" id="input-topic-title" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="select-topic-status" class="form-label">حالة الإنجاز</label>
+            <select id="select-topic-status" class="form-select">
+              <option value="not_started">لم أبدأ</option>
+              <option value="in_progress">قيد الدراسة</option>
+              <option value="completed">مكتمل</option>
+              <option value="needs_review">بحاجة مراجعة</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ الموضوع</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-resource" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">إضافة مصدر أو مرجع</h3>
+        <button type="button" class="icon-btn" data-dismiss="modal">✕</button>
+      </div>
+      <form id="form-resource">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="input-resource-title" class="form-label">عنوان المصدر *</label>
+            <input type="text" id="input-resource-title" class="form-input" placeholder="مثال: سلايدات الشابتر الأول" required>
+          </div>
+          <div class="form-group">
+            <label for="input-resource-url" class="form-label">رابط المصدر (URL)</label>
+            <input type="url" id="input-resource-url" class="form-input" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label for="input-resource-file" class="form-label">أو إرفاق ملف من جهازك</label>
+            <input type="file" id="input-resource-file" class="form-input" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip,.rar">
+          </div>
+          <div class="form-group">
+            <label for="select-resource-type" class="form-label">نوع المصدر</label>
+            <select id="select-resource-type" class="form-select">
+              <option value="slides">سلايدات</option>
+              <option value="summary">ملخص</option>
+              <option value="explanation">شرح</option>
+              <option value="practical">عملي</option>
+              <option value="questions">أسئلة وامتحانات</option>
+              <option value="reference">مرجع</option>
+              <option value="other">أخرى</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ المصدر</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-profile" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header"><h3 class="modal-title">بيانات الطالب</h3><button type="button" class="icon-btn" data-dismiss="modal">✕</button></div>
+      <form id="form-profile">
+        <div class="modal-body">
+          <div class="form-group"><label class="form-label">الاسم الأول</label><input type="text" id="input-student-name" class="form-input"></div>
+          <div class="form-group"><label class="form-label">التخصص</label><select id="select-student-major" class="form-select"><option value="virtual_reality">الواقع الافتراضي</option><option value="cyber_security">أمن المعلومات والفضاء الإلكتروني</option><option value="ai_robotics">الذكاء الاصطناعي والروبوتات</option><option value="digital_forensics">التحقيقات الجنائية الرقمية</option><option value="data_science">علم البيانات والذكاء الاصطناعي</option><option value="software_eng">هندسة البرمجيات</option><option value="computer_science">علم الحاسوب</option></select></div>
+          <div class="form-group"><label class="form-label">سنة الخطة</label><input type="text" id="input-student-year" class="form-input"></div>
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary">حفظ</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-course" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header"><h3 class="modal-title">إضافة مادة جديدة</h3><button type="button" class="icon-btn" data-dismiss="modal">✕</button></div>
+      <form id="form-course">
+        <div class="modal-body">
+          <div class="form-group"><label class="form-label">اسم المادة *</label><input type="text" id="input-course-name" class="form-input" required></div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-sm);">
+            <div class="form-group"><label class="form-label">رمز المادة</label><input type="text" id="input-course-code" class="form-input"></div>
+            <div class="form-group"><label class="form-label">الساعات</label><input type="number" id="input-course-hours" class="form-input" value="3"></div>
+          </div>
+          <div class="form-group"><label class="form-label">التصنيف</label><select id="select-course-class" class="form-select"><option value="unspecified">غير محدد</option><option value="univ_req">متطلب جامعة</option><option value="college_req">متطلب كلية</option><option value="major_req">متطلب تخصص</option><option value="elective">اختياري</option></select></div>
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary">حفظ المادة</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-delete-confirm" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header"><h3 class="modal-title">تأكيد الحذف</h3><button type="button" class="icon-btn" data-dismiss="modal">✕</button></div>
+      <div class="modal-body"><p id="delete-modal-message"></p></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button><button type="button" class="btn btn-danger" id="btn-confirm-delete">نعم، احذف</button></div>
+    </div>
+  </div>
+
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/site-config.js"></script>
+  <script src="./assets/js/storage.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
